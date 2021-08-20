@@ -26,7 +26,7 @@ const Routes = () => {
     {
       pathRota: "/laboratorios",
       component: LaboratoryAbout,
-      permission: ["lider_lab"],
+      //permission: ["lider_lab"],
     },
     {
       pathRota: "/projeto/:id",
@@ -41,7 +41,6 @@ const Routes = () => {
       component: AboutPage,
     },
   ];
-
   return (
     <>
       <BrowserRouter basename="/">
@@ -49,7 +48,7 @@ const Routes = () => {
           <Layout>
             {Routes.map((rota) =>
               !rota.permission ? (
-                <Route path={rota.pathRota} component={rota.component} />
+                <Route exact path={rota.pathRota} component={rota.component} />
               ) : (
                 <PrivateRoute
                   rota={rota}
