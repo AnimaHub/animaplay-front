@@ -4,13 +4,14 @@ import styled from "styled-components";
 const Footer = () => {
   const Footer = styled.div`
     background-image: linear-gradient(to right, #6b2481, #a30f77);
-    border-top: 10px solid #fff;
+    margin-top: 2em;
     bottom: 0;
     left: 0;
-    height: 40px;
+    height: 85px;
     position: relative;
     width: 100%;
     text-align: center;
+    box-shadow: 0px 4px 26px 5px rgb(0 0 0 / 55%);
   `;
 
   const TxtFooter = styled.a`
@@ -18,6 +19,8 @@ const Footer = () => {
     font-family: "Open Sans", sans-serif;
     font-style: normal;
     font-size: 12px;
+    position: relative;
+    top: 2em;
   `;
 
   return (

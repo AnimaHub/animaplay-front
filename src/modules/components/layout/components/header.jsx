@@ -21,6 +21,7 @@ const Header = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+
   const openModal = (value) => {
     console.log("OIII: ", value);
     setIsButton(value);
@@ -34,6 +35,7 @@ const Header = () => {
   const Header = styled.div`
     background-image: linear-gradient(to right, #6b2481, #a30f77);
     height: 100%;
+    box-shadow: 0px 4px 26px -4px rgb(0 0 0 / 55%);
   `;
 
   const Logo = styled.text`
@@ -60,6 +62,7 @@ const Header = () => {
     padding: 10px;
     
   `;
+  
 
   return (
     <Header>
@@ -74,7 +77,7 @@ const Header = () => {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-start">
             <Nav.Link>
-              <Link to="/sobre" style={{textDecoration:"none"}}>
+              <Link to="/sobre" style={{textDecoration:"none"}} className="fs-6">
                 <NavLink>sobre</NavLink>
               </Link>
             </Nav.Link>
@@ -94,13 +97,15 @@ const Header = () => {
               <VscAccount size={30} style={{ color: "white" }} />
               <label style={{ color: "white" }}>Login</label>
             </Button>
+            
             <Button variant="outline-none" onClick={() => openModal()}>
               <BiLogIn size={30} style={{ color: "white" }} />
               <label style={{ color: "white" }}>Cadastrar-se</label>
             </Button>
             {isModalOpen ? (
-              <ModalLayout closeModal={closeModal} isModalOpen={isModalOpen}>
-                {isButton === "login" ? <Login /> : <SingUp />}
+              <ModalLayout closeModal={closeModal} isModalOpen={isModalOpen} height='530px' 
+              width='580px'>
+                {isButton === "login" ? <Login/> : <SingUp />}
               </ModalLayout>
             ) : null}
           </Navbar.Collapse>
