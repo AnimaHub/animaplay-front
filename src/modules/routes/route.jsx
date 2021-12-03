@@ -7,6 +7,7 @@ import LaboratoryAbout from "../pages/laboratory/laboratorysAbout-page";
 import ProjectPage from "../pages/projects/project-page";
 import ProjectsAbout from "../pages/projects/projectsAbout-page";
 import AboutPage from "../pages/about/about";
+import Registration from "../components/registration/registration";
 
 import Layout from "../components/layout/layout";
 import PrivateRoute from "./private-route";
@@ -39,6 +40,10 @@ const Routes = () => {
     {
       pathRota: "/sobre",
       component: AboutPage,
+    },
+    {
+      pathRota: "/inscricao",
+      component: Registration,
     },
   ];
   return (

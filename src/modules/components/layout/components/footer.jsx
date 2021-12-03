@@ -4,7 +4,6 @@ import styled from "styled-components";
 const Footer = () => {
   const Footer = styled.div`
     background-image: linear-gradient(to right, #6b2481, #a30f77);
-    margin-top: 2em;
     bottom: 0;
     left: 0;
     height: 85px;

@@ -32,10 +32,11 @@ const Header = () => {
     setIsSingUp(true);
     return isSingUp;
   };
+
   const Header = styled.div`
     background-image: linear-gradient(to right, #6b2481, #a30f77);
     height: 100%;
-    box-shadow: 0px 4px 26px -4px rgb(0 0 0 / 55%);
+        box-shadow: 0px -4px 26px 5px rgb(0 0 0 / 55%);
   `;
 
   const Logo = styled.text`
@@ -66,7 +67,7 @@ const Header = () => {
 
   return (
     <Header>
-      <Navbar collapseOnSelect expand="lg">
+      <Navbar collapseOnSelect expand="lg" style={{boxShadow: "0px -4px 26px 5px rgb(0 0 0 / 55%)", bacground: "#121212"}}>
         <Container>
           <Navbar.Brand >
             <Link to="/" style={{textDecoration:"none"}}>
