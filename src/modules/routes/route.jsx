@@ -10,14 +10,21 @@ import AboutPage from "../pages/about/about";
 
 import Layout from "../components/layout/layout";
 import PrivateRoute from "./private-route";
+import AnimaPage from "../pages/anima/anima-page";
+import {Usuario} from "../../services/usuario";
 
 // Permission: "admin", "aluno", "orientador", "lider_lab", "parceiro"
 
 const Routes = () => {
+  const user = new Usuario();
   const Routes = [
     {
       pathRota: "/",
       component: Home,
+    },
+    {
+      pathRota: "/anima",
+      component: AnimaPage,
     },
     {
       pathRota: "/laboratorio/:id",
@@ -45,7 +52,7 @@ const Routes = () => {
     <>
       <BrowserRouter basename="/">
         <Switch>
-          <Layout>
+          <Layout logado={user.logado}>
             {Routes.map((rota) =>
               !rota.permission ? (
                 <Route exact path={rota.pathRota} component={rota.component} />

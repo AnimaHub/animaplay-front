@@ -39,6 +39,34 @@ export const checkAuthorization = async (tipo_usuario) => {
     });
 };
 
+export class Usuario {
+    constructor() {
+        this.nome = "Usuario de teste"
+        this.email = "teste@teste.com"
+        this.senha = "oloco"
+        this.telefone = "31 99566-8243"
+        this.tipo_usuario = "admin"
+        this.logado = false
+        this.endereco = new Endereco(
+            "96830-260", "Rua Padre José Belzer", "Arroio Grande",
+            "298", "Santa Cruz do Sul", "RS",
+            "https://animaeducacao.zoom.us/j/82475918671", "fisico")
+    }
+}
+
+export class Endereco {
+
+    constructor(cep, rua, bairro, numero, cidade, estado, link, tipo) {
+        this.cep = cep
+        this.rua = rua
+        this.bairro = bairro
+        this.cidade = cidade
+        this.estado = estado
+        this.link = link
+        this.tipo = tipo
+    }
+
+}
 /* {
     "nome": "Usuario de teste",
     "email": "teste@teste.com",

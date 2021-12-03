@@ -39,6 +39,7 @@ const Login = () => {
     console.log("RESPOSTA FINAL: ", resposta);
 
     console.log("usuarioStorage: ", getUsuario());
+    window.location.href='/anima'
   }
 
   async function testes(event) {

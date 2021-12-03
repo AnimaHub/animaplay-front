@@ -1,13 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import Footer from "./components/footer";
 import Header from "./components/header";
 
 const Layout = ({ children }) => {
-  console.log({...children})
+
+    const { rota, logado: logado, ...rest } = children;
+
   return (
     <>
       <Header/>
-
+        {console.log("AAAAAAQUI!!! " + children)}
       {children}
 
       <script
