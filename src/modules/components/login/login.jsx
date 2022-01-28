@@ -1,24 +1,19 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
-import { getUsuario } from "../../../utils/storege";
-
-import { login, arquivoTeste } from "../../../services/usuario";
-import {
-  cadastrarLaboratorio,
-  listarLaboratorio,
-} from "../../../services/laboratorio";
-import { cadastrarProjeto, listarProjeto } from "../../../services/projeto";
 import Home from "../../pages/home/home";
 import ModalLayout from "../layout/ModalLayout";
 import RecoverPass from "../recoverPass/recoverPass";
-import { propTypes } from "react-bootstrap/esm/Image";
+import {useHistory} from "react-router-dom";
+import AnimaPage from "../../pages/anima/anima-page";
 
-const Login = (modal) => {
+const Login = ({modal ,setIsUserLogged, isUserLogged}) => {
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [isSingUp, setIsSingUp] = useState(false);
   const [isButton, setIsButton] = useState(null);
+  const history = useHistory();
+
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -50,14 +45,15 @@ const Login = (modal) => {
   //Função que vai enviar os dados para consumo da API
   async function handleFormSubmit(event) {
     event.preventDefault();
-    console.log("Campos", campos);
 
-    let resposta = await login({ ...campos, tipo_usuario: "lider_lab" });
+    //let resposta = await login({ ...campos, tipo_usuario: "lider_lab" });
+    //console.log("RESPOSTA FINAL: ", resposta);
+    //console.log("usuarioStorage: ", getUsuario());
 
-    console.log("RESPOSTA FINAL: ", resposta);
-
-    console.log("usuarioStorage: ", getUsuario());
-    window.location.href='/anima'
+    setIsUserLogged(!isUserLogged);
+    history.push('/anima');
+    modal();
+    //   window.location.href='/anima';
   }
 
   async function testes(event) {
@@ -215,10 +211,6 @@ const Login = (modal) => {
           >
             Login
           </Button>{" "}
-
-          <ModalLayout>
-            <Home></Home>
-          </ModalLayout>
         </Form>
       </div>
     </>

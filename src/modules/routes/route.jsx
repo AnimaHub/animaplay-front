@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Home from "../pages/home/home";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
@@ -17,49 +17,59 @@ import {Usuario} from "../../services/usuario";
 // Permission: "admin", "aluno", "orientador", "lider_lab", "parceiro"
 
 const Routes = () => {
-  const user = new Usuario();
+  var userObject = new Usuario();
+  const [user, setUser] = useState(userObject);
+
   const Routes = [
     {
       pathRota: "/",
       component: Home,
+      permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro", undefined]
     },
     {
       pathRota: "/anima",
       component: AnimaPage,
+      permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro"]
     },
     {
       pathRota: "/laboratorio/:id",
       component: LaboratoryPage,
+      permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro", undefined]
     },
     {
       pathRota: "/laboratorios",
       component: LaboratoryAbout,
+      permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro", undefined]
       //permission: ["lider_lab"],
     },
     {
       pathRota: "/projeto/:id",
       component: ProjectPage,
+      permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro", undefined]
     },
     {
       pathRota: "/projeto",
       component: ProjectsAbout,
+      permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro", undefined]
     },
     {
       pathRota: "/sobre",
       component: AboutPage,
+      permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro", undefined]
     },
     {
       pathRota: "/inscricao",
       component: Registration,
+      permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro", undefined]
     },
   ];
   return (
     <>
       <BrowserRouter basename="/">
         <Switch>
-          <Layout logado={user.logado}>
+          <Layout user={user} setUser={setUser}>
             {Routes.map((rota) =>
-              !rota.permission ? (
+              rota.permission.includes(user.tipoUsuario) ? (
                 <Route exact path={rota.pathRota} component={rota.component} />
               ) : (
                 <PrivateRoute

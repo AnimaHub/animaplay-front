@@ -4,13 +4,15 @@ import {convertInFormData} from "../utils/utils";
 
 export const login = async ({ email, senha, tipo_usuario }) => {
   return await axiosInstance
-    .post(`/usuario/login/${tipo_usuario}`, { email: email, senha: senha })
+    .post(`http://localhost:8080/usuario/login/${tipo_usuario}`, { email: email, senha: senha })
     .then((reponse) => {
-      salvarUsuario({
-        jwt: reponse.data.dados.jwt,
-        usuario: reponse.data.dados.usuario,
-      });
-      return reponse.data.dados.usuario;
+        if (reponse.status === 200)
+      // salvarUsuario({
+      //   jwt: reponse.data.dados.jwt,
+      //   usuario: reponse.data.dados.usuario,
+      // });
+      //return reponse.data.dados.usuario;
+      return reponse.data;
     })
     .catch((err) => {
       return err.message;
@@ -45,7 +47,7 @@ export class Usuario {
         this.email = "teste@teste.com"
         this.senha = "oloco"
         this.telefone = "31 99566-8243"
-        this.tipo_usuario = "admin"
+        this.tipoUsuario = "admin"
         this.logado = false
         this.endereco = new Endereco(
             "96830-260", "Rua Padre José Belzer", "Arroio Grande",
