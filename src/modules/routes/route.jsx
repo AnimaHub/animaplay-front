@@ -12,13 +12,12 @@ import Registration from "../components/registration/registration";
 import Layout from "../components/layout/layout";
 import PrivateRoute from "./private-route";
 import AnimaPage from "../pages/anima/anima-page";
-import {Usuario} from "../../services/usuario";
+import {LoginContext} from "../../helper/Context";
 
 // Permission: "admin", "aluno", "orientador", "lider_lab", "parceiro"
 
 const Routes = () => {
-  var userObject = new Usuario();
-  const [user, setUser] = useState(userObject);
+  const [user, setUser] = useState({});
 
   const Routes = [
     {
@@ -40,7 +39,6 @@ const Routes = () => {
       pathRota: "/laboratorios",
       component: LaboratoryAbout,
       permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro", undefined]
-      //permission: ["lider_lab"],
     },
     {
       pathRota: "/projeto/:id",
@@ -64,10 +62,10 @@ const Routes = () => {
     },
   ];
   return (
-    <>
+    <LoginContext.Provider value={{user, setUser}}>
       <BrowserRouter basename="/">
         <Switch>
-          <Layout user={user} setUser={setUser}>
+          <Layout>
             {Routes.map((rota) =>
               rota.permission.includes(user.tipoUsuario) ? (
                 <Route exact path={rota.pathRota} component={rota.component} />
@@ -82,7 +80,7 @@ const Routes = () => {
           </Layout>
         </Switch>
       </BrowserRouter>
-    </>
+    </LoginContext.Provider>
   );
 };
 

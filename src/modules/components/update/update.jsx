@@ -1,7 +1,10 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Button, Form} from "react-bootstrap";
+import {LoginContext} from "../../../helper/Context";
 
 const Update = () => {
+
+    const {user, setUser} = useContext(LoginContext);
     const [campos, setCampos] = useState({
         cNome: "",
         cEmail: "",
@@ -42,7 +45,7 @@ const Update = () => {
                             type="email"
                             name="cNome"
                             id="cNome"
-                            placeholder="Nome Completo"
+                            placeholder= {user.nome || "Nome Completo"}
                             onChange={handleInputChange}
                         />
                         <Form.Text className="text-muted">
@@ -61,7 +64,7 @@ const Update = () => {
                             type="int"
                             name="cTelefone"
                             id="cTelefone"
-                            placeholder="Telefone"
+                            placeholder={ user.telefone || "Telefone"}
                             onChange={handleInputChange}
                         />
                         <Form.Text className="text-muted">Telefone para contato.</Form.Text>
@@ -73,7 +76,7 @@ const Update = () => {
                             type="text"
                             name="cRua"
                             id="cRua"
-                            placeholder="Rua/Avenida"
+                            placeholder={ user.endereco.rua || "Rua/Avenida"}
                             onChange={handleInputChange}
                         />
                         <Form.Text className="text-muted">
@@ -87,7 +90,7 @@ const Update = () => {
                             type="number"
                             name="cNumero"
                             id="cNumero"
-                            placeholder="Número"
+                            placeholder={ user.endereco.numero || "Número"}
                             onChange={handleInputChange}
                         />
                         <Form.Text className="text-muted">Ex.: 145, 36, 301.</Form.Text>
@@ -99,7 +102,7 @@ const Update = () => {
                             type="text"
                             name="cBairro"
                             id="cBairro"
-                            placeholder="Bairro"
+                            placeholder={ user.endereco.bairro || "Bairro"}
                             onChange={handleInputChange}
                         />
                         <Form.Text className="text-muted">Ex.: 145, 36, 301.</Form.Text>
@@ -111,7 +114,7 @@ const Update = () => {
                             type="text"
                             name="cCep"
                             id="cCep"
-                            placeholder="CEP"
+                            placeholder={ user.endereco.bairro || "CEP"}
                             onChange={handleInputChange}
                         />
                         <Form.Text className="text-muted">
@@ -125,7 +128,7 @@ const Update = () => {
                             type="text"
                             name="cCidade"
                             id="cCidade"
-                            placeholder="Cidade"
+                            placeholder={user.endereco.cidade || "Cidade"}
                             onChange={handleInputChange}
                         />
                         <Form.Text className="text-muted">
@@ -139,7 +142,7 @@ const Update = () => {
                             type="text"
                             name="cEstado"
                             id="cEstado"
-                            placeholder="Estado"
+                            placeholder={ user.endereco.estado || "Estado"}
                             onChange={handleInputChange}
                         />
                         <Form.Text className="text-muted">

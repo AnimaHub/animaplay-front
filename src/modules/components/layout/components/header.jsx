@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import styled from "styled-components";
 import {
   Navbar,
@@ -15,8 +15,11 @@ import Login from "../../login/login";
 import SignUp from "../../signup/signup";
 import Update from "../../update/update";
 import { Link, useHistory } from "react-router-dom";
+import {LoginContext} from "../../../../helper/Context";
 
-const Header = ({isUserLogged, setIsUserLogged}) => {
+const Header = () => {
+
+  const {user, setUser} = useContext(LoginContext);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isSingUp, setIsSingUp] = useState(false);
   const [isButton, setIsButton] = useState(null);
@@ -38,7 +41,9 @@ const Header = ({isUserLogged, setIsUserLogged}) => {
   };
 
   const logOut = () => {
-    setIsUserLogged(false);
+    let userObject = user;
+    userObject.logado = false;
+    setUser(userObject);
     history.push('/');
   }
 
@@ -105,40 +110,40 @@ const Header = ({isUserLogged, setIsUserLogged}) => {
 
 
           <Navbar.Collapse className="justify-content-end">
-            {isUserLogged ? <></> :
+            {!user.logado &&
               <Button variant="outline-none" onClick={() => openModal("login")}>
                 <VscAccount size={30} style={{ color: "white" }} />
                 <label style={{ color: "white" }}>Login</label>
               </Button>
             }
 
-            {isUserLogged ? <></> :
+            {!user.logado &&
               <Button variant="outline-none" onClick={() => openModal('signUp')}>
                 <BiLogIn size={30} style={{ color: "white" }} />
                 <label style={{ color: "white" }}>Cadastrar-se</label>
               </Button>
             }
 
-            {isUserLogged ?
+            {user.logado &&
               <Button variant="outline-none" onClick={() => openModal('MyAccount')}>
                 <BiWinkTongue  size={30} style={{ color: "white" }} />
                 <label style={{ color: "white" }}>Minha Conta</label>
-              </Button> : <></>
+              </Button>
             }
 
-            {isUserLogged ?
+            {user.logado &&
                 <Button variant="outline-none" onClick={() => logOut()}>
                   <BiAccessibility  size={30} style={{ color: "white" }} />
                   <label style={{ color: "white" }}>Sair</label>
-                </Button> : <></>
+                </Button>
             }
 
             {isModalOpen ? (
               <ModalLayout closeModal={closeModal} isModalOpen={isModalOpen} height='530px'
               width='580px'>
-                {isButton === "login" ? <Login modal={closeModal} isUserLogged={isUserLogged} setIsUserLogged={setIsUserLogged}/> : <></>}
-                {isButton === 'signUp'? <SignUp/> : <></>}
-                {isButton === 'MyAccount' ? <Update></Update> : <></>}
+                {isButton === "login" && <Login modal={closeModal} />}
+                {isButton === 'signUp' && <SignUp/>}
+                {isButton === 'MyAccount' && <Update></Update>}
               </ModalLayout>
             ) : null}
           </Navbar.Collapse>

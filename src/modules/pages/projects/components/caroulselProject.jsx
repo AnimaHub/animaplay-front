@@ -18,7 +18,7 @@ const Project = () => {
         `https://raw.githubusercontent.com/MateusCastro2203/jsonRapositorys/master/animaflix/jsonProjetos.json`
       ).then((response) => response.json());
       setCarouselImgProjects(result);
-      console.log("OI", result);
+      //console.log("OI", result);
     }
     fetchData();
   }, []);

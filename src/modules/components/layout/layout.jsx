@@ -1,19 +1,14 @@
-import React, {useState} from "react";
-import PropTypes from "prop-types";
-import { withRouter } from "react-router";
+import React from "react";
 import Footer from "./components/footer";
 import Header from "./components/header";
 
-const Layout = ({ children, user, setUser}) => {
-
-    const [isUserLogged, setIsUserLogged] = useState(user.logado);
-    const [userPermission, setUserPermission] = useState(user.tipoUsuario);
+const Layout = ({ children}) => {
 
     const { rota, logado: logado, ...rest } = children;
 
   return (
     <>
-      <Header isUserLogged={isUserLogged} setUserPermission={setUserPermission} setIsUserLogged={setIsUserLogged}/>
+      <Header />
         {/*{console.log("AAAAAAQUI!!! " + children)}*/}
       {children}
 
