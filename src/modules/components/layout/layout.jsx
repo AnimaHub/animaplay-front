@@ -2,12 +2,14 @@ import React from "react";
 import Footer from "./components/footer";
 import Header from "./components/header";
 
-const Layout = ({ children }) => {
-  console.log({...children})
+const Layout = ({ children}) => {
+
+    const { rota, logado: logado, ...rest } = children;
+
   return (
     <>
-      <Header/>
-
+      <Header />
+        {/*{console.log("AAAAAAQUI!!! " + children)}*/}
       {children}
 
       <script
@@ -27,6 +29,6 @@ const Layout = ({ children }) => {
       <Footer />
     </>
   );
-};
+}
 
 export default Layout;

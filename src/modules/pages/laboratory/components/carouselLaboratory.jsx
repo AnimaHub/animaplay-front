@@ -24,14 +24,13 @@ const Laboratory = () => {
     font-style: normal;
     font-weight: 700;
     font-size: 15px;
-    text-shadow: 0.5px 0.5px 0.5px #777777;
     color: #59329c;
     text-transform: uppercase;
     text-align: center;
   `;
   const Projetos = styled.h2`
     @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap");
-    font-family: "Open Sans", sans-serif;
+    font-family: Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol;
     font-style: normal;
     font-weight: 500;
     font-size: 30px;
@@ -39,6 +38,7 @@ const Laboratory = () => {
     color: #592c81;
     text-transform: uppercase;
   `;
+
   const Border = styled.div`
     border-style: none;
   `;
@@ -71,7 +71,7 @@ const Laboratory = () => {
   };
 
   return (
-    <Container>
+    <Container style={{ textAlign: "center" }}>
       <br></br>
       <Projetos>Laboratorios</Projetos>
       <Carousel
@@ -97,7 +97,10 @@ const Laboratory = () => {
                 <Card.Img
                   variant="top"
                   src={value.imgLink}
-                  style={{ width: "18rem" }}
+                  style={{
+                    width: "18rem", boxShadow: "3px 4px 10px -1px rgb(0 0 0 / 49%)",
+                    borderRadius: "4px"
+                  }}
                 />
               </Card.Body>
               <Card.Footer
@@ -106,6 +109,7 @@ const Laboratory = () => {
               >
                 <div className="d-grid gap-2">
                   <Button
+                    style={{ boxShadow: "3px 4px 10px -1px rgb(0 0 0 / 49%)" }}
                     variant="primary"
                     onClick={() => handleClick(value.id)}
                   >

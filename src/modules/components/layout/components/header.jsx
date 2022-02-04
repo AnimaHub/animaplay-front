@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import styled from "styled-components";
 import {
   Navbar,
@@ -9,18 +9,26 @@ import {
   ModalBody,
 } from "react-bootstrap";
 import { VscAccount } from "react-icons/vsc";
-import { BiLogIn } from "react-icons/bi";
+import {BiAbacus, BiAccessibility, BiLogIn, BiWinkTongue} from "react-icons/bi";
 import ModalLayout from "../ModalLayout";
 import Login from "../../login/login";
-import SingUp from "../../signup/signup";
-import { Link } from "react-router-dom";
+import SignUp from "../../signup/signup";
+import Update from "../../update/update";
+import { Link, useHistory } from "react-router-dom";
+import {LoginContext} from "../../../../helper/Context";
+
 const Header = () => {
+
+  const {user, setUser} = useContext(LoginContext);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isSingUp, setIsSingUp] = useState(false);
   const [isButton, setIsButton] = useState(null);
+  const history = useHistory();
+
   const closeModal = () => {
     setModalOpen(false);
   };
+
   const openModal = (value) => {
     console.log("OIII: ", value);
     setIsButton(value);
@@ -31,9 +39,18 @@ const Header = () => {
     setIsSingUp(true);
     return isSingUp;
   };
+
+  const logOut = () => {
+    let userObject = user;
+    userObject.logado = false;
+    setUser(userObject);
+    history.push('/');
+  }
+
   const Header = styled.div`
     background-image: linear-gradient(to right, #6b2481, #a30f77);
     height: 100%;
+        box-shadow: 0px -4px 26px 5px rgb(0 0 0 / 55%);
   `;
 
   const Logo = styled.text`
@@ -60,10 +77,11 @@ const Header = () => {
     padding: 10px;
     
   `;
+  
 
   return (
     <Header>
-      <Navbar collapseOnSelect expand="lg">
+      <Navbar collapseOnSelect expand="lg" style={{boxShadow: "0px -4px 26px 5px rgb(0 0 0 / 55%)", bacground: "#121212"}}>
         <Container>
           <Navbar.Brand >
             <Link to="/" style={{textDecoration:"none"}}>
@@ -74,7 +92,7 @@ const Header = () => {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-start">
             <Nav.Link>
-              <Link to="/sobre" style={{textDecoration:"none"}}>
+              <Link to="/sobre" style={{textDecoration:"none"}} className="fs-6">
                 <NavLink>sobre</NavLink>
               </Link>
             </Nav.Link>
@@ -89,18 +107,43 @@ const Header = () => {
               </Link>
             </Nav.Link>
           </Navbar.Collapse>
+
+
           <Navbar.Collapse className="justify-content-end">
-            <Button variant="outline-none" onClick={() => openModal("login")}>
-              <VscAccount size={30} style={{ color: "white" }} />
-              <label style={{ color: "white" }}>Login</label>
-            </Button>
-            <Button variant="outline-none" onClick={() => openModal()}>
-              <BiLogIn size={30} style={{ color: "white" }} />
-              <label style={{ color: "white" }}>Cadastrar-se</label>
-            </Button>
+            {!user.logado &&
+              <Button variant="outline-none" onClick={() => openModal("login")}>
+                <VscAccount size={30} style={{ color: "white" }} />
+                <label style={{ color: "white" }}>Login</label>
+              </Button>
+            }
+
+            {!user.logado &&
+              <Button variant="outline-none" onClick={() => openModal('signUp')}>
+                <BiLogIn size={30} style={{ color: "white" }} />
+                <label style={{ color: "white" }}>Cadastrar-se</label>
+              </Button>
+            }
+
+            {user.logado &&
+              <Button variant="outline-none" onClick={() => openModal('MyAccount')}>
+                <BiWinkTongue  size={30} style={{ color: "white" }} />
+                <label style={{ color: "white" }}>Minha Conta</label>
+              </Button>
+            }
+
+            {user.logado &&
+                <Button variant="outline-none" onClick={() => logOut()}>
+                  <BiAccessibility  size={30} style={{ color: "white" }} />
+                  <label style={{ color: "white" }}>Sair</label>
+                </Button>
+            }
+
             {isModalOpen ? (
-              <ModalLayout closeModal={closeModal} isModalOpen={isModalOpen}>
-                {isButton === "login" ? <Login /> : <SingUp />}
+              <ModalLayout closeModal={closeModal} isModalOpen={isModalOpen} height='530px'
+              width='580px'>
+                {isButton === "login" && <Login modal={closeModal} />}
+                {isButton === 'signUp' && <SignUp/>}
+                {isButton === 'MyAccount' && <Update></Update>}
               </ModalLayout>
             ) : null}
           </Navbar.Collapse>

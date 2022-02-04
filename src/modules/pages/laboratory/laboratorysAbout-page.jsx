@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Container, Button, Row, Col } from "react-bootstrap";
 import styled from "styled-components";
 import { useHistory } from "react-router";
+import Header from "../../../modules/components/layout/components/header";
 
 const LaboratoryAbout = () => {
   const [Laboratory, setLaboratory] = useState([]);
@@ -54,7 +55,7 @@ const LaboratoryAbout = () => {
         {Laboratory.map((value) => (
           <>
             <Row>
-              <Col xs={6} md={4}>
+              <Col xs={5} md={4}>
                 <img src={value.imgLink} style={{ width: "15rem" }} />
               </Col>
               <Col xs={10} md={6}>
@@ -68,7 +69,7 @@ const LaboratoryAbout = () => {
                     onClick={() => handleClick(value.id)}
                   >
                     {" "}
-                    Saiba Mais{" "}
+                    Saiba Mais{" "}             
                   </Button>
                 </div>
               </Col>

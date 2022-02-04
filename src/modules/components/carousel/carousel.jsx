@@ -42,7 +42,7 @@ const CarouselPage = () => {
   return (
     <Container>
       <br></br>
-      <Carousel>
+      <Carousel className="mt-4">
         {carouselData.map((value, index) => (
           <Carousel.Item style={{ height: 400 }}>
             <Image
