@@ -47,6 +47,7 @@ const Login = ({modal}) => {
     async function handleFormSubmit(event) {
         event.preventDefault()
 
+        console.log('WTF!!!!')
         const resposta = await login({...campos})
         //console.log("RESPOSTA FINAL: ", resposta);
         //console.log("usuarioStorage: ", getUsuario());

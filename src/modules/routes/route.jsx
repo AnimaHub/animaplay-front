@@ -13,8 +13,9 @@ import Layout from "../components/layout/layout";
 import PrivateRoute from "./private-route";
 import AnimaPage from "../pages/anima/anima-page";
 import {LoginContext} from "../../helper/Context";
+import Recovery from "../pages/recovery/recovery";
 
-// Permission: "admin", "aluno", "orientador", "lider_lab", "parceiro"
+// Permission: "admin", "aluno", "aluno anima -> RA", "orientador", "lider_lab", "parceiro"
 
 const Routes = () => {
   const [user, setUser] = useState({});
@@ -23,7 +24,7 @@ const Routes = () => {
     {
       pathRota: "/",
       component: Home,
-      permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro", undefined]
+      permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro", "standard", undefined]
     },
     {
       pathRota: "/anima",
@@ -60,6 +61,11 @@ const Routes = () => {
       component: Registration,
       permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro", undefined]
     },
+    {
+      pathRota: "/recuperar",
+      component: Recovery,
+      permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro", undefined]
+    }
   ];
   return (
     <LoginContext.Provider value={{user, setUser}}>

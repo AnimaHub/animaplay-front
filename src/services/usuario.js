@@ -3,29 +3,64 @@ import {salvarUsuario, limparUsuario} from "../utils/storege";
 import {convertInFormData} from "../utils/utils";
 import {map} from "react-bootstrap/ElementChildren";
 
-export const login = async ({email, senha}) => {
 
+async function httpRequest({headers, body, uri, method}) {
     let content;
-
     await (async () => {
-        const rawResponse = await fetch(`${process.env.REACT_APP_API_URL}usuario/login`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({email: email, senha: senha})
+        const rawResponse = await fetch(`${process.env.REACT_APP_API_URL}${uri}`, {
+            method: method,
+            headers: headers,
+            body: body
         });
 
         content = await rawResponse.json();
-
-        if (content.dados) {
-            salvarUsuario({
-                jwt: content.dados.jwt,
-                usuario: content.dados.usuario,
-            });
-        }
     })();
+
+    return content;
+}
+
+export const setNewPassword = async ({token, senha}) => {
+    const headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'x-access-token': token
+    };
+    const body = JSON.stringify({senha: senha});
+    const uri = 'usuario/password/new';
+    const method = 'PUT';
+    return await httpRequest({headers, body, uri, method});
+}
+
+export const recoveryPassword = async  ({email}) => {
+    const headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    };
+    const body = JSON.stringify({email: email});
+    const uri = 'usuario/password/recovery';
+    const method = 'POST';
+
+    return await httpRequest({headers, body, uri, method});
+}
+
+export const login = async ({email, senha}) => {
+    let content;
+    const headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    };
+    const body = JSON.stringify({email: email, senha: senha});
+    const uri = 'usuario/login';
+    const method = 'POST';
+
+    content = await httpRequest({headers, body, uri, method});
+
+    if (content.dados) {
+        salvarUsuario({
+            jwt: content.dados.jwt,
+            usuario: content.dados.usuario,
+        });
+    }
 
     return content;
 };

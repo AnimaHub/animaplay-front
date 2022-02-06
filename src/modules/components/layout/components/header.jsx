@@ -16,6 +16,7 @@ import SignUp from "../../signup/signup";
 import Update from "../../update/update";
 import { Link, useHistory } from "react-router-dom";
 import {LoginContext} from "../../../../helper/Context";
+import {limparUsuario} from "../../../../utils/storege";
 
 const Header = () => {
 
@@ -44,6 +45,7 @@ const Header = () => {
     let userObject = user;
     userObject.logado = false;
     setUser(userObject);
+    limparUsuario();
     history.push('/');
   }
 
