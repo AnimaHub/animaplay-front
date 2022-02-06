@@ -2,6 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const currentYear = new Date().getFullYear();
+const css = {
+    position: 'absolute',
+    bottom: '0',
+    left: '0',
+}
 
 const Footer = () => {
 
