@@ -46,8 +46,6 @@ const Login = ({modal}) => {
     //Função que vai enviar os dados para consumo da API
     async function handleFormSubmit(event) {
         event.preventDefault()
-
-        console.log('WTF!!!!')
         const resposta = await login({...campos})
         //console.log("RESPOSTA FINAL: ", resposta);
         //console.log("usuarioStorage: ", getUsuario());
@@ -62,7 +60,6 @@ const Login = ({modal}) => {
             const userObject = new Usuario(id, nome, tipoUsuario, idAdmin);
             userObject.logado = true;
             setUser(userObject);
-            console.log(userObject);
             history.push('/anima');
             modal();
             //window.location.href = '/anima';
