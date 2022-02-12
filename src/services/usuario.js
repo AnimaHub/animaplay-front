@@ -14,6 +14,7 @@ async function httpRequest({headers, body, uri, method}) {
         });
 
         content = await rawResponse.json();
+        //console.log(' inside ',content)
     })();
 
     return content;
@@ -26,34 +27,33 @@ export const setNewPassword = async ({token, senha}) => {
         'x-access-token': token
     };
     const body = JSON.stringify({senha: senha});
-    const uri = 'usuario/password/new';
+    const uri = 'users/password/new';
     const method = 'PUT';
     return await httpRequest({headers, body, uri, method});
 }
 
-export const recoveryPassword = async  ({email}) => {
+export const recoveryPassword = async ({email}) => {
     const headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     };
     const body = JSON.stringify({email: email});
-    const uri = 'usuario/password/recovery';
+    const uri = 'users/password/recovery';
     const method = 'POST';
 
     return await httpRequest({headers, body, uri, method});
 }
 
 export const login = async ({email, senha}) => {
-    let content;
     const headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     };
     const body = JSON.stringify({email: email, senha: senha});
-    const uri = 'usuario/login';
+    const uri = 'users/login';
     const method = 'POST';
 
-    content = await httpRequest({headers, body, uri, method});
+    let content = await httpRequest({headers, body, uri, method});
 
     if (content.dados) {
         salvarUsuario({
@@ -65,15 +65,42 @@ export const login = async ({email, senha}) => {
     return content;
 };
 
-export const cadastro = async (usuario) => {
-    return await axiosInstance
-        .post(`/usuario`, usuario)
-        .then((reponse) => {
-            return reponse.data.dados;
-        })
-        .catch((err) => {
-            return err.message;
+export const signUp = async (usuario) => {
+    const headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    };
+    const body = JSON.stringify({
+        nome: usuario.nome,
+        email: usuario.email,
+        senha: usuario.senha,
+        telefone: usuario.telefone,
+        tipo_usuario: 'aluno',
+        endereco: {
+            cep: usuario.cep,
+            rua: usuario.rua,
+            bairro: usuario.bairro,
+            numero: usuario.numero,
+            cidade: usuario.cidade,
+            estado: usuario.estado,
+            link: '',
+            tipo: 'fisico'
+        }
+    });
+
+    const uri = 'users';
+    const method = 'POST';
+
+    let content = await httpRequest({headers, body, uri, method});
+
+    if (content.dados) {
+        salvarUsuario({
+            jwt: content.dados.jwt,
+            usuario: content.dados.usuario,
         });
+    }
+
+    return content;
 };
 
 export const checkAuthorization = async (tipo_usuario) => {

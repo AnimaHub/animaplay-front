@@ -12,6 +12,7 @@
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.4",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.27.0",
     "react-icons": "^4.2.0",
     "react-modal": "^3.14.3",
     "react-multi-carousel": "^2.6.3",
@@ -22,10 +23,10 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "env-cmd .env react-scripts start",
-    "build": "env-cmd .env react-scripts build",
+    "start": "react-scripts start",
+    "build": "CI=false && react-scripts build",
     "test": "react-scripts test",
-    "eject": "env-cmd .env react-scripts eject",
+    "eject": "react-scripts eject",
     "deploy": "aws s3 sync build/ s3://animaplay-front --acl public-read"
   },
   "eslintConfig": {
