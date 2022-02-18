@@ -14,7 +14,7 @@ async function httpRequest({headers, body, uri, method}) {
         });
 
         content = await rawResponse.json();
-        //console.log(' inside ',content)
+        console.log(' inside ',content)
     })();
 
     return content;
@@ -73,8 +73,11 @@ export const signUp = async (usuario) => {
     const body = JSON.stringify({
         nome: usuario.nome,
         email: usuario.email,
+        cpf: usuario.cpf,
+        rg: usuario.rg,
         senha: usuario.senha,
         telefone: usuario.telefone,
+        foto: usuario.foto,
         tipo_usuario: 'aluno',
         endereco: {
             cep: usuario.cep,

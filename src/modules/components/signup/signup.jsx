@@ -59,7 +59,7 @@ const SignUp = () => {
         if (errorMessage === '') {
             setIsButtonInactive(true);
             const response = await signUp(campos);
-            let msg = response['mensage'];
+            let msg = response;
             if (msg) {
                 setMessage('danger', `${msg} 🥺`);
                 setIsButtonInactive(false);
