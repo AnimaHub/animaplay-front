@@ -32,7 +32,7 @@ const CarouselPage = () => {
   useEffect(() => {
     async function fetchData() {
       const result = await fetch(
-        `https://raw.githubusercontent.com/MateusCastro2203/jsonRapositorys/master/animaflix/jsonCarousel.json`
+        `https://gist.githubusercontent.com/Leo3965/9d3bf8a19fe61b9fb6451ec2fadef3b8/raw/192198339be3b3f9a8abb3d230a7e00d7c953dab/animalabmodal.json`
       ).then((response) => response.json());
       SetCarouselData(result);
     }
