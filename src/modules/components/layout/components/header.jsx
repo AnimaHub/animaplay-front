@@ -4,7 +4,7 @@ import {
     Navbar, Container, Nav, Button, CloseButton, ModalBody,
 } from "react-bootstrap";
 import {VscAccount} from "react-icons/vsc";
-import {BiAbacus, BiAccessibility, BiLogIn, BiWinkTongue} from "react-icons/bi";
+import {BiAbacus, BiLogOut, BiLogIn, BiWinkTongue} from "react-icons/bi";
 import ModalLayout from "../ModalLayout";
 import Login from "../../login/login";
 import SignUp from "../../signup/signup";
@@ -46,9 +46,13 @@ const Header = () => {
     }
 
     const Header = styled.div`
-      background-image: linear-gradient(to right, #5d388d, #a01745, #f0804c);
+      background-image: linear-gradient(to right, #f0804c, #a01745, #5d388d);
       height: 100%;
       box-shadow: 0px -4px 26px -3px rgba(0, 0, 0, 4%);
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
     `;
 
     const Logo = styled.img`
@@ -70,8 +74,13 @@ const Header = () => {
 
     return (<Header>
         <Navbar collapseOnSelect expand="lg"
-                style={{boxShadow: "0px -4px 26px 5px rgb(0 0 0 / 55%)", bacground: "#121212"}}>
-            <Container>
+                style={{
+                    boxShadow: "0px -4px 26px 5px rgb(0 0 0 / 55%)",
+                    width: '100%',
+                    padding: '1rem 2rem'
+                }}
+        >
+            <>
                 <Navbar.Brand>
                     <Link to="/" style={{textDecoration: "none"}}>
                         <Logo src={logo}/>
@@ -102,22 +111,22 @@ const Header = () => {
 
                 <Navbar.Collapse className="justify-content-end">
                     {!user.logado && <Button variant="outline-none" onClick={() => openModal("login")}>
-                        <VscAccount size={30} style={{color: "white"}}/>
+                        <VscAccount size={30} style={{color: "white", marginRight: '0.5rem'}}/>
                         <label style={{color: "white"}}>Login</label>
                     </Button>}
 
                     {!user.logado && <Button variant="outline-none" onClick={() => openModal('signUp')}>
-                        <BiLogIn size={30} style={{color: "white"}}/>
+                        <BiLogIn size={30} style={{color: "white", marginRight: '0.5rem'}}/>
                         <label style={{color: "white"}}>Cadastrar-se</label>
                     </Button>}
 
                     {user.logado && <Button variant="outline-none" onClick={() => openModal('MyAccount')}>
-                        <BiWinkTongue size={30} style={{color: "white"}}/>
+                        <BiWinkTongue size={30} style={{color: "white", marginRight: '0.5rem'}}/>
                         <label style={{color: "white"}}>Minha Conta</label>
                     </Button>}
 
                     {user.logado && <Button variant="outline-none" onClick={() => logOut()}>
-                        <BiAccessibility size={30} style={{color: "white"}}/>
+                        <BiLogOut size={30} style={{color: "white", marginRight: '0.5rem'}}/>
                         <label style={{color: "white"}}>Sair</label>
                     </Button>}
 
@@ -130,7 +139,7 @@ const Header = () => {
                 </Navbar.Collapse>
 
                 <Navbar.Collapse className="justify-content-end"></Navbar.Collapse>
-            </Container>
+            </>
         </Navbar>
     </Header>);
 };
