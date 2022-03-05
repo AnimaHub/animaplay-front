@@ -106,28 +106,8 @@ const ProjectPage = (value) => {
 
     return (<div>
         <br></br>
+        <br></br>
         <Container>
-            <Row>
-                <Section>
-                    <TopContent>
-                        <Cta>
-                            <CtaText>
-                                <Title>
-                                    {project.title}
-                                </Title>
-                                <Text>{project.description}</Text>
-                            </CtaText>
-                            <Image
-                                src={project.imgLink}
-                                style={{
-                                    backgroundSize: 'cover',
-                                    backgroundPosition: 'center'
-                                }}
-                            />
-                        </Cta>
-                    </TopContent>
-                </Section>
-            </Row>
             <Tabs defaultActiveKey="home" id="uncontrolled-tab-example" className="mb-3">
                 <Tab eventKey="home" title="Home">
                     <Row style={{gap: '1rem'}}>
@@ -225,6 +205,28 @@ const ProjectPage = (value) => {
                     <Card.Footer className="text-muted">equipe anima hub</Card.Footer>
                 </Card>
             </Enroll>
+
+            <Row>
+                <Section>
+                    <TopContent>
+                        <Cta>
+                            <CtaText>
+                                <Title>
+                                    {project.title}
+                                </Title>
+                                <Text>{project.description}</Text>
+                            </CtaText>
+                            <Image
+                                src={project.imgLink}
+                                style={{
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center'
+                                }}
+                            />
+                        </Cta>
+                    </TopContent>
+                </Section>
+            </Row>
         </Container>
     </div>);
 };
