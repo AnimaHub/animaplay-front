@@ -587,7 +587,7 @@ const SignUp = () => {
                             role="status"
                             aria-hidden="true"
                         />
-                        Loading...
+                        Carregando...
                     </Button>
                 </div>) : ''}
 
