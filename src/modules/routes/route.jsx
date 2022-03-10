@@ -24,7 +24,7 @@ const Routes = () => {
     {
       pathRota: "/",
       component: Home,
-      permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro", "standard", undefined]
+      permission: ["admin", "aluno", "orientador", "lider_lab", "parceiro", undefined]
     },
     {
       pathRota: "/anima",

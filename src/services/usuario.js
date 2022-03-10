@@ -1,20 +1,25 @@
 import axiosInstance from "../utils/axios-instance";
-import {salvarUsuario, limparUsuario} from "../utils/storege";
-import {convertInFormData} from "../utils/utils";
-import {map} from "react-bootstrap/ElementChildren";
+import {salvarUsuario} from "../utils/storege";
+import {capitalize} from './string';
 
+async function httpRequestCode({headers, body, uri, method}) {
+    let status = 0;
+    const content = await fetch(`${process.env.REACT_APP_API_URL}${uri}`, {
+        method: method, headers: headers, body: body
+    }).then(r => status = r.status)
+
+    return status;
+}
 
 async function httpRequest({headers, body, uri, method}) {
     let content;
     await (async () => {
         const rawResponse = await fetch(`${process.env.REACT_APP_API_URL}${uri}`, {
-            method: method,
-            headers: headers,
-            body: body
+            method: method, headers: headers, body: body
         });
 
         content = await rawResponse.json();
-        //console.log(' inside ',content)
+        console.log(' inside ', content)
     })();
 
     return content;
@@ -22,9 +27,7 @@ async function httpRequest({headers, body, uri, method}) {
 
 export const setNewPassword = async ({token, senha}) => {
     const headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'x-access-token': token
+        'Accept': 'application/json', 'Content-Type': 'application/json', 'x-access-token': token
     };
     const body = JSON.stringify({senha: senha});
     const uri = 'users/password/new';
@@ -34,8 +37,7 @@ export const setNewPassword = async ({token, senha}) => {
 
 export const recoveryPassword = async ({email}) => {
     const headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Accept': 'application/json', 'Content-Type': 'application/json'
     };
     const body = JSON.stringify({email: email});
     const uri = 'users/password/recovery';
@@ -46,8 +48,7 @@ export const recoveryPassword = async ({email}) => {
 
 export const login = async ({email, senha}) => {
     const headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Accept': 'application/json', 'Content-Type': 'application/json'
     };
     const body = JSON.stringify({email: email, senha: senha});
     const uri = 'users/login';
@@ -57,8 +58,7 @@ export const login = async ({email, senha}) => {
 
     if (content.dados) {
         salvarUsuario({
-            jwt: content.dados.jwt,
-            usuario: content.dados.usuario,
+            jwt: content.dados.jwt, usuario: content.dados.usuario,
         });
     }
 
@@ -67,15 +67,24 @@ export const login = async ({email, senha}) => {
 
 export const signUp = async (usuario) => {
     const headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Accept': 'application/json', 'Content-Type': 'application/json'
     };
+
+    const nome = capitalize(usuario.nome);
+
     const body = JSON.stringify({
         nome: usuario.nome,
         email: usuario.email,
         senha: usuario.senha,
         telefone: usuario.telefone,
-        tipo_usuario: 'aluno',
+        foto: usuario.foto,
+        tipo_usuario: usuario.tipoUsuario,
+        ra: usuario.ra,
+        curso: usuario.curso,
+        instituicao: usuario.instituicao,
+        tipo_aluno: usuario.tipoAluno,
+        empresa: usuario.empresa,
+        cargo: usuario.cargo,
         endereco: {
             cep: usuario.cep,
             rua: usuario.rua,
@@ -83,7 +92,6 @@ export const signUp = async (usuario) => {
             numero: usuario.numero,
             cidade: usuario.cidade,
             estado: usuario.estado,
-            link: '',
             tipo: 'fisico'
         }
     });
@@ -91,16 +99,7 @@ export const signUp = async (usuario) => {
     const uri = 'users';
     const method = 'POST';
 
-    let content = await httpRequest({headers, body, uri, method});
-
-    if (content.dados) {
-        salvarUsuario({
-            jwt: content.dados.jwt,
-            usuario: content.dados.usuario,
-        });
-    }
-
-    return content;
+    return await httpRequestCode({headers, body, uri, method});
 };
 
 export const checkAuthorization = async (tipo_usuario) => {
