@@ -17,8 +17,9 @@ const LaboratoryPage = (value) => {
 
     useEffect(() => {
         async function fetchData() {
-            const result = await fetch(`https://raw.githubusercontent.com/MateusCastro2203/jsonRapositorys/master/animaflix/JsonLab.json`).then((response) => response.json());
-            setLaboratory(result);
+            const result = await fetch(`https://gist.githubusercontent.com/Leo3965/1f56509fa6356e550930f14e3e3dae7d/raw/0123a657ba4dbbb8e9485b3a058f8a057124f4f6/animalablab.json`)
+                .then((response) => response.json())
+            setLaboratory(result)
         }
 
         fetchData();

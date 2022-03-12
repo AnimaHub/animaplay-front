@@ -46,9 +46,8 @@ const Header = () => {
     }
 
     const Header = styled.div`
-      background-image: linear-gradient(to right, #f0804c, #a01745, #5d388d);
+      background: linear-gradient(to right, #f0804c, #a01745, #5d388d);
       height: 100%;
-      box-shadow: 0px -4px 26px -3px rgba(0, 0, 0, 4%);
       display: flex;
       width: 100%;
       justify-content: space-between;
