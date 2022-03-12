@@ -82,7 +82,7 @@ const Header = () => {
         >
             <>
                 <Navbar.Brand>
-                    <Link to="/" style={{textDecoration: "none"}}>
+                    <Link to="/anima" style={{textDecoration: "none"}}>
                         <Logo src={logo}/>
                     </Link>
 

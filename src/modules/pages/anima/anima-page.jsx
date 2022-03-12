@@ -1,5 +1,4 @@
 import React, {useContext} from "react";
-import CarouselPage from "../../components/carousel/carousel";
 import Project from "../projects/components/caroulselProject";
 import Laboratory from "../laboratory/components/carouselLaboratory";
 import Menu from '../../components/menu/menu'
@@ -10,8 +9,8 @@ import {Container} from 'react-bootstrap'
 const AnimaPage = () => {
     const {user, setUser} = useContext(LoginContext);
 
-    if (false) {
-        return (<Redirect to="/"/>);
+    if (!user.logado) {
+        return (<Redirect to="/"/>)
     }
 
     return (<div

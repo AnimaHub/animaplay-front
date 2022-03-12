@@ -12,7 +12,6 @@ const Login = ({modal}) => {
 
     const {user, setUser} = useContext(LoginContext);
     const [isModalOpen, setModalOpen] = useState(false);
-    const [isSingUp, setIsSingUp] = useState(false);
     const [isButton, setIsButton] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const history = useHistory();
@@ -47,8 +46,6 @@ const Login = ({modal}) => {
     async function handleFormSubmit(event) {
         event.preventDefault()
         const resposta = await login({...campos})
-        //console.log("RESPOSTA FINAL: ", resposta);
-        //console.log("usuarioStorage: ", getUsuario());
         if (!Boolean(getUsuario())) {
             setErrorMessage(resposta.message);
         } else {
@@ -56,72 +53,14 @@ const Login = ({modal}) => {
             const nome = resposta.dados.usuario.nome;
             const tipoUsuario = resposta.dados.usuario.tipo_usuario;
             const idAdmin = resposta.dados.usuario.id_admin;
-            
+
             const userObject = new Usuario(id, nome, tipoUsuario, idAdmin);
             userObject.logado = true;
             setUser(userObject);
             history.push('/anima');
             modal();
-            //window.location.href = '/anima';
         }
 
-    }
-
-    async function testes(event) {
-        /* event.preventDefault();
-
-        let respostaLabs = await cadastrarLaboratorio({
-          nome: "Usuario de teste",
-          email: "teste@teste.com",
-          telefone: "31 99566-8243",
-          arquivo_id: campos.arquivo_id,
-          endereco: {
-            cep: "96830-260",
-            rua: "Rua Padre José Belzer",
-            bairro: "Arroio Grande",
-            numero: "298",
-            cidade: "Santa Cruz do Sul",
-            estado: "RS",
-            link: "https://animaeducacao.zoom.us/j/82475918671",
-            tipo: "fisico",
-          },
-        });
-
-        console.log("Resposta labs post: ", respostaLabs); */
-        /*
-
-        let respostaProjects = await cadastrarProjeto({
-          nome: "Projeto de teste",
-          data_inicial: "14/09/2021",
-          data_final: "14/12/2021",
-          descricao: "Projeto descricao",
-          categoria: "extensao",
-          carga_horaria: 125,
-          status_projeto: "aguardando_publicacao",
-          endereco: {
-            cep: "96830-260",
-            rua: "Rua Padre José Belzer",
-            bairro: "Arroio Grande",
-            numero: "298",
-            cidade: "Santa Cruz do Sul",
-            estado: "RS",
-            link: "https://animaeducacao.zoom.us/j/82475918671",
-            tipo: "fisico",
-          },
-        });
-
-        console.log("Resposta projects post: ", respostaProjects);
-
-        let respostaProjectsList = await listarProjeto();
-        let respostaLabsList = await listarLaboratorio();
-
-        console.log("Resposta labs get: ", respostaLabsList);
-
-        console.log("Resposta projects get: ", respostaProjectsList); */
-    }
-
-    function handleSingUp() {
-        return true
     }
 
     const Title = styled.h1`
@@ -146,32 +85,11 @@ const Login = ({modal}) => {
       text-align: center;
     `;
 
-    const Forgout = styled.a`
-      display: block;
-      float: right;
-      margin-right: 10px;
-    `;
-
     const Recover = styled.span`
       text-decoration: underline;
       cursor: pointer;
       font-size: 13px;
     `;
-
-    const customStyles = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-            width: 'auto',
-            height: '90%',
-            border: 'none',
-            boxShadow: '4px 1px 21px -1px rgb(0 0 0 / 33%)'
-        },
-    };
-
 
     return (
         <>
