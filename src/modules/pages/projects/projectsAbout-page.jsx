@@ -1,85 +1,62 @@
-import React, { useEffect, useState } from "react";
-import { Card, Container, Button, Row, Col } from "react-bootstrap";
-import styled from "styled-components";
-import { useHistory } from "react-router";
+import React, {useEffect, useState} from "react"
+import styled from 'styled-components'
+import {useHistory} from "react-router"
+import Introduction from "../../components/introduction/introduction"
+import ProjectCard from "../../components/projectCard/projectCard"
 
 const ProjectsAbout = () => {
-  const [Laboratory, setLaboratory] = useState([]);
-  const history = useHistory();
+    const [Laboratory, setLaboratory] = useState([])
+    const history = useHistory()
 
-  const handleClick = (value) => {
-    history.push(`/projeto/${value}`);
-  };
+    const title = '2022.1'
+    const contentList = ['Clique em "Conheça a nossa equipe" e faça a sua inscrição para participar de um dos projetos']
 
-  useEffect(() => {
-    async function fetchData() {
-      const result = await fetch(
-        `https://raw.githubusercontent.com/MateusCastro2203/jsonRapositorys/master/animaflix/jsonProjetos.json`
-      ).then((response) => response.json());
-      setLaboratory(result);
-    }
-    fetchData();
-  }, []);
+    const handleClick = (value) => {
+        history.push(`/projeto/${value}`)
+    };
 
-  const About = styled.h1`
-    @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap");
-    font-family: "Open Sans", sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    text-shadow: 0.5px 0.5px 0.5px #ffff;
-    color: #a31078;
-  `;
+    useEffect(() => {
+        async function fetchData() {
+            const result = await fetch(
+                `https://raw.githubusercontent.com/MateusCastro2203/jsonRapositorys/master/animaflix/jsonProjetos.json`
+            ).then((response) => response.json())
+            setLaboratory(result)
+        }
 
-  const Title = styled.h2`
-    @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap");
-    font-family: "Open Sans", sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    text-shadow: 2px 1px 1px #ffffff;
-    color: #592c81;
-    text-transform: uppercase;
-  `;
+        fetchData()
+    }, [])
 
-  const Border = styled.div`
-    border-style: none;
-  `;
+    const Content = styled.div`
+      background: linear-gradient(to right, #df735d, #f4d0c9);
+    `
 
-  return (
-    <div>
-      <br />
-      <br />
-      <Container>
-        {Laboratory.map((value) => (
-          <>
-            <Row>
-              <Col xs={6} md={4}>
-                <img src={value.imgLink} style={{ width: "15rem" }} />
-              </Col>
-              <Col xs={10} md={6}>
-                <Title>{value.title}</Title>
-                <About>{value.description}</About>
-              </Col>
-              <Col xs={3} md={2}>
-                <div className="d-grid gap-2">
-                  <Button
-                    style={{ marginTop: "4rem" }}
-                    onClick={() => handleClick(value.id)}
-                  >
-                    {" "}
-                    Saiba Mais{" "}
-                  </Button>
-                </div>
-              </Col>
-              <hr />
-            </Row>
-            <br />
-          </>
-        ))}
-      </Container>
-    </div>
-  );
-};
+    const ProjectBox = styled.div`
+      border-bottom: rgba(0, 0, 0, 0.20) solid 1px;
+    `
 
-export default ProjectsAbout;
+    const ProjectTitle = styled.div`
+      font-family: 'Ubuntu', sans-serif;
+      background: #FFF;
+      color: #c0663d;
+      font-size: 1.5rem;
+      padding: 1rem 3rem;
+      display: flex;
+      justify-content: center;
+      text-transform: uppercase;
+      font-weight: 400;
+    `
+
+    return (
+        <Content>
+            <Introduction title={title} contentList={contentList}/>
+            <ProjectTitle>Projetos</ProjectTitle>
+            {Laboratory.map((value) => (
+                <ProjectBox>
+                    <ProjectCard project={value} handleClick={handleClick}/>
+                </ProjectBox>
+            ))}
+        </Content>
+    )
+}
+
+export default ProjectsAbout

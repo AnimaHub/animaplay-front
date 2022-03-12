@@ -1,72 +1,34 @@
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router";
-import {Container, Row, Col, Card, Button, Image, Tab, Tabs} from "react-bootstrap";
-import styled from "styled-components";
-import Photo from "../../../assets/img/HealthLab.png";
+import React, {useEffect, useState} from "react"
+import {useParams} from "react-router"
+import {Container, Row, Col, Card, Button, Image, Tab, Tabs} from "react-bootstrap"
+import styled from "styled-components"
+import ProjectCard from "../../components/projectCard/projectCard";
 
 const ProjectPage = (value) => {
-    const [Project, setProject] = useState([]);
-    const {id} = useParams();
+    const [Project, setProject] = useState([])
+    const {id} = useParams()
 
-    var project = {};
+    var project = {}
 
     Project.map((result) => {
         if (result.id == id) {
-            project = result;
+            project = result
         }
-    });
-
-    console.log(id);
+    })
 
     useEffect(() => {
         async function fetchData() {
             const result = await fetch(`https://raw.githubusercontent.com/MateusCastro2203/jsonRapositorys/master/animaflix/jsonProjetos.json`).then((response) => response.json());
-            setProject(result);
+            setProject(result)
         }
 
-        fetchData();
-    }, []);
-
-    const Section = styled.section`
-      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&display=swap");
-      font-family: "Open Sans", sans-serif;
-      padding: 4.8rem 0 6rem;
-      color: #452e4a;
-    `;
-
-    const TopContent = styled.div`
-      max-width: 120rem;
-      padding: 0 3.2rem;
-      margin: 0 auto;
-    `;
-
-    const Cta = styled.div`
-      display: grid;
-      grid-template-columns: 70% 30%;
-      box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.25);
-      border-radius: 11px;
-
-      background-image: linear-gradient(to right bottom, #e599f7, #f3d9fa);
-      overflow: hidden;
-
-    `;
-
-    const CtaText = styled.div`
-      padding: 3.8rem 5.4rem 0 5.4rem;
-    `;
+        fetchData()
+    }, [])
 
     const Text = styled.div`
       font-size: 0.9rem;
       line-height: 1.8;
-    `;
-
-    const Title = styled.h1`
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      font-size: 3.4rem;
-      line-height: 1.2;
-      margin-bottom: 2rem;
-    `;
+    `
 
     const Description = styled.p`
       @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');;
@@ -75,7 +37,7 @@ const ProjectPage = (value) => {
       font-weight: 400;
       font-size: 1.2rem;
       margin-bottom: 2rem;
-    `;
+    `
 
     const InternalDescription = styled.p`
       @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');;
@@ -84,25 +46,25 @@ const ProjectPage = (value) => {
       font-weight: 400;
       font-size: 0.8rem;
       text-align: initial;
-    `;
+    `
 
     const Ul = styled.ul`
       margin: 0.3rem 0;
       list-style: disc;
-    `;
+    `
 
     const Li = styled.li`
       padding: 0 0 0 1rem;
-    `;
+    `
 
     const Enroll = styled.div`
       width: 100%;
       margin: 3rem 0 2rem 0;
-    `;
+    `
 
     const divImg = styled.div`
       width: 100%;
-    `;
+    `
 
     return (<div>
         <br></br>
@@ -205,28 +167,6 @@ const ProjectPage = (value) => {
                     <Card.Footer className="text-muted">equipe anima hub</Card.Footer>
                 </Card>
             </Enroll>
-
-            <Row>
-                <Section>
-                    <TopContent>
-                        <Cta>
-                            <CtaText>
-                                <Title>
-                                    {project.title}
-                                </Title>
-                                <Text>{project.description}</Text>
-                            </CtaText>
-                            <Image
-                                src={project.imgLink}
-                                style={{
-                                    backgroundSize: 'cover',
-                                    backgroundPosition: 'center'
-                                }}
-                            />
-                        </Cta>
-                    </TopContent>
-                </Section>
-            </Row>
         </Container>
     </div>);
 };

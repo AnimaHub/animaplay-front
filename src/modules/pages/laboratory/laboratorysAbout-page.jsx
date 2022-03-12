@@ -6,8 +6,17 @@ import peopleLogo from '../../../assets/img/lab-logos/cubo-lab-unibh-11.png'
 import EngLogo from '../../../assets/img/lab-logos/cubo-lab-unibh-13.png'
 import PlantLogo from '../../../assets/img/lab-logos/cubo-lab-unibh_Prancheta-15.png'
 import JusticeLogo from '../../../assets/img/lab-logos/cubo-lab-unibh_Prancheta-1-07.png'
+import Introduction from "../../components/introduction/introduction";
 
 const LaboratoryAbout = () => {
+
+    const title = 'Laboratórios Temáticos'
+    const contentList = [
+        'Clique em "SITE" e faça a sua inscrição para participar de um dos projetos dos nossos',
+        'laboratórios temáticos nas',
+        'áreas do conhecimento do Ecossistema Ânima'
+    ]
+
     const [Laboratory, setLaboratory] = useState([])
     const history = useHistory()
 
@@ -25,45 +34,6 @@ const LaboratoryAbout = () => {
 
         fetchData()
     }, [])
-
-    const About = styled.h1`
-      font-family: "Open Sans", sans-serif;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 15px;
-      text-shadow: 0.5px 0.5px 0.5px #ffff;
-      color: #a31078;
-    `
-
-    const Title = styled.h2`
-      font-family: "Open Sans", sans-serif;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 20px;
-      text-shadow: 2px 1px 1px #ffffff;
-      color: #592c81;
-      text-transform: uppercase;
-    `
-
-    const Introduction = styled.div`
-      font-family: 'Ubuntu', sans-serif;
-      background: linear-gradient(to right, #f0804c, #a01745, #5d388d);
-      padding: 2rem 1rem 3rem 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    `
-
-    const IntroductionTitle = styled.h1`
-      font-weight: 500;
-      font-size: 1.5rem;
-      color: #FFF;
-      text-transform: uppercase;
-    `
-    const IntroductionContent = styled.span`
-      font-size: 0.7rem;
-      color: #FFF;
-    `
 
     const LabTitle = styled.div`
       font-family: 'Ubuntu', sans-serif;
@@ -117,7 +87,7 @@ const LaboratoryAbout = () => {
       max-width: 80%;
       border: none;
       transition: background-color 0.5s ease;
-      
+
       &:hover {
         background-color: #701030;
       }
@@ -125,15 +95,7 @@ const LaboratoryAbout = () => {
 
     return (
         <>
-            <Introduction>
-                <IntroductionTitle>Laboratórios Temáticos</IntroductionTitle>
-                <>
-                    <IntroductionContent>Clique em "SITE" e faça a sua inscrição para participar de um dos projetos dos
-                        nossos 37</IntroductionContent>
-                    <IntroductionContent>laboratórios temáticos nas</IntroductionContent>
-                    <IntroductionContent>áreas do conhecimento do Ecossistema Ânima</IntroductionContent>
-                </>
-            </Introduction>
+            <Introduction title={title} contentList={contentList}/>
 
             <LabTitle> Engenharia </LabTitle>
             <LabGrid>
@@ -179,7 +141,7 @@ const LaboratoryAbout = () => {
             <LabGrid>
                 <Container>
                     <Row>
-                        {Laboratory.map((value, index) => (
+                        {Laboratory.map((value) => (
                             <Col sm={3}>
                                 <LabCard>
                                     <LabImg src={value.imgLink}/>
